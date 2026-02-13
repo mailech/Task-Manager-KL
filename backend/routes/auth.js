@@ -14,13 +14,14 @@ const jwt = require('jsonwebtoken');
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback',
-    passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login', session: false }),
+    passport.authenticate('google', { failureRedirect: process.env.CLIENT_URL ? `${process.env.CLIENT_URL}/login` : 'http://localhost:5173/login', session: false }),
     (req, res) => {
         // Successful authentication, redirect home with token
         const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
             expiresIn: '30d',
         });
-        res.redirect(`http://localhost:5173?token=${token}`);
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        res.redirect(`${clientUrl}?token=${token}`);
     }
 );
 
