@@ -61,7 +61,6 @@ JWT_SECRET=your_jwt_secret_key
 # Optional for Google Auth
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-CLIENT_URL=http://localhost:5173
 ```
 
 Start the backend server:
