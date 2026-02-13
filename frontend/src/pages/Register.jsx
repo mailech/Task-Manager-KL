@@ -19,7 +19,7 @@ const Register = () => {
         try {
             await register(username, email, password);
         } catch (err) {
-            alert('Registration failed');
+            alert('Registration failed: ' + err);
         }
     };
 

@@ -18,7 +18,7 @@ const Login = () => {
         try {
             await login(email, password);
         } catch (err) {
-            alert('Login failed');
+            alert('Login failed: ' + err);
         }
     };
 

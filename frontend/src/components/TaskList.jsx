@@ -17,9 +17,15 @@ const TaskList = () => {
         );
     }
 
+    // Sort tasks: Pending first, then Completed
+    const sortedTasks = [...tasks].sort((a, b) => {
+        if (a.status === b.status) return new Date(b.createdAt || 0) - new Date(a.createdAt || 0); // Secondary sort by newness
+        return a.status === 'completed' ? 1 : -1;
+    });
+
     return (
         <div className="grid">
-            {tasks.map((task) => (
+            {sortedTasks.map((task) => (
                 <TaskItem key={task._id} task={task} />
             ))}
         </div>
