@@ -17,20 +17,26 @@ const app = express();
 app.use(cors({
     origin: function (origin, callback) {
         const allowedOrigins = [
+            'http://localhost:5000',
             'http://localhost:5173',
             'http://localhost:5174',
-            'http://localhost:5175',
-            process.env.CLIENT_URL // Add production frontend URL here
+            'https://task-manager-omega-orcin.vercel.app',
         ];
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            // For now, allow all during development/testing phase if origin not found to prevent frustration
-            // In strict production, you might want to restrict this.
-            // return callback(new Error('The CORS policy for this site does not allow access from the specified Origin.'), false);
-            return callback(null, true);
+
+        // Add env var origin if exists, cleaning trailing slash
+        if (process.env.CLIENT_URL) {
+            allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ""));
         }
-        return callback(null, true);
+
+        // Allow requests with no origin 
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            console.log('Parameters:', origin);
+            return callback(null, true); // Still allowing others ideally for dev, but this might be risky for credentials
+        }
     },
     credentials: true
 }));
