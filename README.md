@@ -2,6 +2,9 @@
 
 A modern, full-stack Task Management application built with the MERN stack (MongoDB, Express, React, Node.js). This application features a robust authentication system, a responsive glassmorphism UI, and efficient task organization tools.
 
+## 🌐 Live Demo
+Check out the live application here: **[Task Manager Live Demo](https://task-manager-omega-orcin.vercel.app)**
+
 ## 🚀 Features
 
 *   **User Authentication**: Secure Sign Up and Login using JWT and Passport.js (Google Auth supported).
