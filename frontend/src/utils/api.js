@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    // Check if we are in production to set credentials
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
     },
