@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import api from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,15 @@ export const AuthProvider = ({ children }) => {
     // Check if user is logged in
     useEffect(() => {
         const checkUser = async () => {
+            // Check for token in URL (Google Auth redirect)
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlToken = urlParams.get('token');
+
+            if (urlToken) {
+                localStorage.setItem('token', urlToken);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
             const token = localStorage.getItem('token');
             if (token) {
                 try {
